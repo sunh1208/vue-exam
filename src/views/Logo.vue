@@ -26,16 +26,17 @@ export default {
   },
   computed: {},
   methods: {
-    ...mapActions("login", ["loginAsync"]),
+    ...mapActions("login", ["loginAsync", "userInfo"]),
     async login() {
-      console.log({ user_name: this.user_name, user_pwd: this.user_pwd });
       let loginFlag = await this.loginAsync({
         user_name: this.user_name,
         user_pwd: this.user_pwd
       });
-      console.log(loginFlag, 1);
+      // if (loginFlag) {
+      //   this.$router.history.push("/home");
+      // }
       if (loginFlag) {
-        this.$router.history.push("/home");
+        this.userInfo();
       }
     }
   },

@@ -5,6 +5,7 @@ let request = axios.create({                         //开发环境|生产环境
 })
 
 request.interceptors.request.use((config) => {
+    console.log(window.localStorage.getItem('token'))
     config.headers.authorization = window.localStorage.getItem('token')
     return config
 }, (error) => {
@@ -27,7 +28,7 @@ export let Login = (params) => {
     //  axios.post('/api/user/login', { ...params })
 }
 export let UserInfo = () => {
-    return get('/user/userInfo')
+    return get('/user/userInfo', {})
 }
 
 export let Fun2 = () => { }
