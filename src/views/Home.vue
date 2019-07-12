@@ -26,8 +26,8 @@
                 <i class="el-icon-location"></i>
                 <span>班级管理</span>
               </template>
-              <el-menu-item index="2-1">班级管理</el-menu-item>
-              <el-menu-item index="2-2">教室管理</el-menu-item>
+              <router-link :to="{path:'/home/grade',query:{tit:'班级管理'}}" tag="el-menu-item">班级管理</router-link>
+              <router-link :to="{path:'/home/room',query:{tit:'教室管理'}}" tag="el-menu-item">教室管理</router-link>
               <el-menu-item index="2-3">学生管理</el-menu-item>
             </el-submenu>
             <template>
@@ -53,8 +53,7 @@
       </div>
       <div class="cont-right">
         <div class="ant-layout" style="padding: 0px 24px 24px;">
-          <h2 style="padding: 20px 0px; margin-top: 0px;"></h2>
-          <div class="ant-layout-content"></div>
+          <h2 style="padding: 20px 0px; margin-top: 0px;">{{$route.query.tit}}</h2>
         </div>
         <div class="ant-layout-content">
           <router-view></router-view>
@@ -64,14 +63,13 @@
   </div>
 </template>
 <script>
+import { mapActions } from "vuex";
 import Header from "../components/Header";
 export default {
   props: {},
   components: { Header },
   data() {
-    return {
-     
-    };
+    return {};
   },
   computed: {},
   methods: {
@@ -81,9 +79,11 @@ export default {
     handleClose(key, keyPath) {
       console.log(key, keyPath);
     },
-   
+    ...mapActions(["GetSubjectData"])
   },
-  created() {},
+  created() {
+    this.GetSubjectData();
+  },
   mounted() {}
 };
 </script>
@@ -118,6 +118,7 @@ main {
       flex: 1;
       overflow: hidden;
       width: 100%;
+      padding: 0px;
       background: #fff;
       border-radius: 10px;
     }

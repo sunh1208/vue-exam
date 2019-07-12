@@ -32,11 +32,10 @@ export default {
         user_name: this.user_name,
         user_pwd: this.user_pwd
       });
-      // if (loginFlag) {
-      //   this.$router.history.push("/home");
-      // }
-      if (loginFlag) {
-        this.userInfo();
+      this.$message(loginFlag.msg);
+      if (loginFlag.flag) {
+        await this.$router.history.push("/home");
+        await this.userInfo();
       }
     }
   },

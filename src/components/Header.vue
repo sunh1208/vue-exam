@@ -33,7 +33,9 @@ export default {
   data() {
     return { topFlag: false };
   },
-  computed: {},
+  computed: {
+
+  },
   methods: {
     topUser() {
       this.topFlag = true;
@@ -43,7 +45,9 @@ export default {
     }
   },
   created() {},
-  mounted() {}
+  mounted() {
+    
+  }
 };
 </script>
 <style scoped lang="scss">

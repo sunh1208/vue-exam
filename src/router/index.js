@@ -4,6 +4,7 @@ import HelloWorld from '@/components/HelloWorld'
 import Home from '../views/Home'
 import Logo from "../views/Logo"
 import Grade from '../views/Grade'
+import Room from '../views/Room'
 Vue.use(Router)
 
 let Route = new Router({
@@ -22,6 +23,11 @@ let Route = new Router({
           path: "grade",
           name: 'Grade',
           component: Grade
+        },
+        {
+          path: "room",
+          name: 'Room',
+          component: Room
         }
       ]
     },

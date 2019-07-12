@@ -17,7 +17,7 @@ request.interceptors.response.use((response) => {
     return Promise.reject(error)
 })
 
-let get = (url, params) => request.get(url, { params })
+let get = (url, params) => { console.log(params, 9999); return request.get(url, { params }) }
 let post = (url, data) => request.post(url, { ...data })
 let deletes = (url, data) => request.delete(url, { data })
 let put = (url, data) => request.put(url, { data })
@@ -25,13 +25,36 @@ let put = (url, data) => request.put(url, { data })
 
 export let Login = (params) => {
     return post('/user/login', params)
-    //  axios.post('/api/user/login', { ...params })
 }
 export let UserInfo = () => {
     return get('/user/userInfo', {})
 }
 
-export let Fun2 = () => { }
-export let Fun3 = () => { }
+export let getGradeData = () => {
+    return get('/manger/grade', {})
+}
+export let getRoomData = () => {
+    return get('/manger/room', {})
+}
 
+export let addRoomData = (roomText) => {
+    return post('/manger/room', { room_text: roomText })
+}
+
+export let delRoomData = (room_id) => {
+    return deletes('/manger/room/delete', { room_id })
+}
+export let getSubjectData = () => {
+    return get('/exam/subject')
+}
+export let getUnusedGradeData = () => {
+    return get('/manger/grade/new')
+}
+export let addGradeData = (obj) => {
+    return post('manger/grade', obj)
+}
+
+export let delGradeData = (grade_id) => {
+    return deletes('/manger/grade/delete', { grade_id })
+}
 
