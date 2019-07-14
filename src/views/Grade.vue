@@ -32,9 +32,8 @@
         <el-form :model="form">
           <el-form-item label="班级名称" :label-width="formLabelWidth">
             <template>
-               <el-input v-model="form.name" autocomplete="off" :disabled="flag"></el-input>
+              <el-input v-model="form.name" autocomplete="off" :disabled="flag"></el-input>
             </template>
-           
           </el-form-item>
           <el-form-item label="教室号" :label-width="formLabelWidth">
             <el-select v-model="form.region" placeholder="请选择教室号">
@@ -74,7 +73,7 @@ export default {
   components: {},
   data() {
     return {
-      flag:false,
+      flag: false,
       dialogFormVisible: false,
       form: {
         name: "",
@@ -85,7 +84,8 @@ export default {
         delivery: false,
         type: [],
         resource: "",
-        desc: ""
+        desc: "",
+        grade_id: ""
       },
       formLabelWidth: "120px"
     };
@@ -96,23 +96,30 @@ export default {
     ...mapState(["subject"])
   },
   methods: {
-    revision(item){
-      this.flag=true;
+    revision(item) {
+      this.flag = true;
       this.dialogFormVisible = true;
-      this.form.name=item.grade_name;
-      this.form.kc=JSON.stringify({subject_text:item.subject_text,subject_id:item.subject_id})
-      this.form.region=JSON.stringify({room_text:item.room_text,room_id:item.room_id})
+      this.form.name = item.grade_name;
+      this.form.kc = JSON.stringify({
+        subject_text: item.subject_text,
+        subject_id: item.subject_id
+      });
+      this.form.region = JSON.stringify({
+        room_text: item.room_text,
+        room_id: item.room_id
+      });
+      this.form.grade_id = item.grade_id;
     },
     addGrade() {
       let obj = {};
-      if(this.form.name==''){
-        return this.$message.error('班级名称必选');
+      if (this.form.name == "") {
+        return this.$message.error("班级名称必选");
       }
-      if(this.form.region==''){
-        return this.$message.error('教室号必选');
+      if (this.form.region == "") {
+        return this.$message.error("教室号必选");
       }
-      if(this.form.kc==''){
-        return this.$message.error('科目必选');
+      if (this.form.kc == "") {
+        return this.$message.error("科目必选");
       }
       this.dialogFormVisible = false;
       if (this.form.region == "") {
@@ -127,30 +134,28 @@ export default {
           ...JSON.parse(this.form.kc)
         };
       }
-      if(!this.flag) {this.AddGradeData(obj);}else{
+      if (!this.flag) {
+        let sd = this.AddGradeData(obj);
+      } else {
+        obj.grade_id = this.form.grade_id;
         this.UpData(obj);
       }
-     
-      async function sleep(interval){
-        return new Promise(resolve=>{
-          setTimeout(resolve,interval)
-        })
+
+      async function sleep(interval) {
+        return new Promise(resolve => {
+          setTimeout(resolve, interval);
+        });
       }
-      sleep(1000).then(()=>{
-        console.log(1234)
-      })
+      sleep(1000).then(() => {
+        console.log(1234);
+      });
     },
-    delGrade(obj){
-      this.DelGradeData(obj)
+    delGrade(obj) {
+      this.DelGradeData(obj);
     },
-    ...mapActions("grade", ["GetGradeData", "AddGradeData","DelGradeData","UpData"]),
-    ...mapActions("room", ["GetRoomData"])
+    ...mapActions("grade", ["AddGradeData", "DelGradeData", "UpData"])
   },
-  created() {
-    this.GetGradeData();
-    console.log(this.GetRoomData);
-    this.GetRoomData();
-  },
+  created() {},
   mounted() {}
 };
 </script>

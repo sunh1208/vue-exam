@@ -20,7 +20,6 @@ export default {
         async GetSubjectData({ commit }) {
             let data = await getSubjectData();
             commit('setSubjectData', data.data)
-            console.log(data, 'subject')
         }
     }
 }

@@ -86,9 +86,7 @@ export default {
         });
     }
   },
-  created() {
-    this.GetRoomData();
-  },
+  created() {},
   mounted() {}
 };
 </script>

@@ -20,7 +20,7 @@ request.interceptors.response.use((response) => {
 let get = (url, params) => { console.log(params, 9999); return request.get(url, { params }) }
 let post = (url, data) => request.post(url, { ...data })
 let deletes = (url, data) => request.delete(url, { data })
-let put = (url, data) => request.put(url, { data })
+let put = (url, data) => request.put(url, { ...data })
 
 
 export let Login = (params) => {
@@ -58,3 +58,14 @@ export let delGradeData = (grade_id) => {
     return deletes('/manger/grade/delete', { grade_id })
 }
 
+export let upGradeData = (newGrade) => {
+    return put('/manger/grade/update', newGrade)
+}
+
+export let getStudentData = () => {
+    return get('/manger/student')
+}
+
+export let getUnusedStudent = () => {
+    return get('/manger/student/new')
+}

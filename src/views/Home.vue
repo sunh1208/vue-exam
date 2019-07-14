@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="box">
     <Header></Header>
     <main>
       <div class="cont-left">
@@ -26,9 +26,21 @@
                 <i class="el-icon-location"></i>
                 <span>班级管理</span>
               </template>
-              <router-link :to="{path:'/home/grade',query:{tit:'班级管理'}}" tag="el-menu-item">班级管理</router-link>
-              <router-link :to="{path:'/home/room',query:{tit:'教室管理'}}" tag="el-menu-item">教室管理</router-link>
-              <el-menu-item index="2-3">学生管理</el-menu-item>
+              <router-link
+                index="2-1"
+                :to="{path:'/home/grade',query:{tit:'班级管理'}}"
+                tag="el-menu-item"
+              >班级管理</router-link>
+              <router-link
+                index="2-2"
+                :to="{path:'/home/room',query:{tit:'教室管理'}}"
+                tag="el-menu-item"
+              >教室管理</router-link>
+              <router-link
+                index="2-3"
+                :to="{path:'/home/student',query:{tit:'学生管理'}}"
+                tag="el-menu-item"
+              >学生管理</router-link>
             </el-submenu>
             <template>
               <el-submenu index="3">
@@ -79,19 +91,30 @@ export default {
     handleClose(key, keyPath) {
       console.log(key, keyPath);
     },
-    ...mapActions(["GetSubjectData"])
+    ...mapActions(["GetSubjectData"]),
+    ...mapActions("room", ["GetRoomData"]),
+    ...mapActions("grade", ["GetGradeData"])
   },
   created() {
     this.GetSubjectData();
+    this.GetRoomData();
+    this.GetGradeData();
   },
   mounted() {}
 };
 </script>
 <style scoped lang="scss">
+.box {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
 main {
+  flex: 1;
   display: flex;
   width: 100%;
-  height: 1000px;
+
   .cont-left {
     width: 200px;
     height: 100%;
@@ -107,17 +130,15 @@ main {
   .cont-right {
     flex: 1;
     display: flex;
+    overflow-y: auto;
     flex-direction: column;
     padding: 0 20px;
     background: #ccc;
     .ant-layout {
-      width: 100%;
       height: 90px;
     }
     .ant-layout-content {
       flex: 1;
-      overflow: hidden;
-      width: 100%;
       padding: 0px;
       background: #fff;
       border-radius: 10px;

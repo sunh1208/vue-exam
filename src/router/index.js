@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
 import Home from '../views/Home'
 import Logo from "../views/Logo"
 import Grade from '../views/Grade'
 import Room from '../views/Room'
+import Student from '../views/Student'
 Vue.use(Router)
 
 let Route = new Router({
@@ -28,6 +28,11 @@ let Route = new Router({
           path: "room",
           name: 'Room',
           component: Room
+        },
+         {
+          path: "student",
+          name: 'Student',
+          component: Student
         }
       ]
     },

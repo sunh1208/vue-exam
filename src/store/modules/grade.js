@@ -1,4 +1,4 @@
-import { getGradeData, addGradeData, getUnusedGradeData, delGradeData } from "../../server"
+import { getGradeData, addGradeData, getUnusedGradeData, delGradeData, upGradeData } from "../../server"
 export default {
     namespaced: true,
     state: {
@@ -28,11 +28,12 @@ export default {
         delGrade(state, action) {
             let delArr = action.room ? 'grade' : 'unusedGrade';
             state[delArr] = state[delArr].filter(item => item.grade_id != action.grade_id)
-            // if (action.room) {
-            //     state.grade=state.room.filter(item=>item.grade_id!=action.grade_id)
-            // } else {
-            //     state.unusedGrade = state.room.filter(item => item.grade_id != action.grade_id)
-            // }
+        },
+        upGrade(state, action) {
+            let Arr = action.room_id ? 'grade' : 'unusedGrade';
+            state[Arr] = state[Arr].map(item => {
+                return item.grade_id == action.grade_id ? action : item
+            })
         }
     },
     actions: {
@@ -40,20 +41,22 @@ export default {
             let data = await getGradeData();
             let data2 = await getUnusedGradeData()
             commit('setData', data.data)
-            console.log(data2)
             commit('setUnusedData', data2.data)
         },
         async AddGradeData({ commit }, GradeObj) {
             let data = await addGradeData(GradeObj);
             data.code && commit(GradeObj.room_id ? 'addData' : 'addUnusedData', { ...GradeObj, grade_id: data.grade_id })
+           alert(data.msg)
         },
         async DelGradeData({ commit }, gradeObj) {
             let data = await delGradeData(gradeObj.grade_id)
             data.code && commit("delGrade", gradeObj)
-            console.log(data)
         },
         async UpData({ commit }, newGrade) {
-            console.log(newGrade)       //21:32
+            //21:32
+            let data = await upGradeData(newGrade);
+            data.code && commit('upGrade', newGrade)
+
         }
     }
 }
